@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -Wall -g2 -ggdb   CMakeFiles/Gene.dir/demo_main.cpp.o  -o Gene  -Wl,-Bstatic -ljsoncpp -Wl,-Bdynamic 

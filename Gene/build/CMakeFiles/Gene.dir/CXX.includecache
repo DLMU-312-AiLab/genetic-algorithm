@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Gene/demo_main.cpp
+iostream
+-
+fstream
+-
+vector
+-
+list
+-
+string
+-
+stdlib.h
+-
+algorithm
+-
+cmath
+-
+assert.h
+-
+jsoncpp/json/json.h
+-
+set
+-
+numeric
+-
+random
+-
+ctime
+-
+

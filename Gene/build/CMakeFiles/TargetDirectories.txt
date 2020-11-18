@@ -1,0 +1,3 @@
+/Gene/build/CMakeFiles/edit_cache.dir
+/Gene/build/CMakeFiles/rebuild_cache.dir
+/Gene/build/CMakeFiles/Gene.dir
