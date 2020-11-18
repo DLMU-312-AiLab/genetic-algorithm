@@ -42,32 +42,14 @@ vector<vector<float>> loadFile(const string& path)
     }
     else
     {
-	 if(reader.parse(fileObj,root))
-	{
-             vector<float> temp(2,0);
-	     auto val= root["InputModels"]["ProposedBuildings"];
-	     for(int i=0;i<val.size();i++)
-	     {
-	         for(int j=0;j<val[i]["Cells"].size();j++)
-		 {
-		     for(int k=0;k<val[i]["Cells"][j]["Profiles"]["Loops"].size();k++)
-		     {
-			auto & point =val[i]["Cells"][j]["Profiles"]["Loops"][k]["Points"];
-			unsigned len=point.size();
-
-			for(int cnt=0;cnt<len;cnt++)
-			{
-			    temp.at(0)=point[cnt]["X"].asFloat()/1000.0;
-			    temp.at(1)=point[cnt]["Y"].asFloat()/1000.0;
-
-			    data.push_back(temp);
+	    // load your data
+	    
 			}
 		     }
 		 }
 	     }
 	}
     }
-     data.resize(2048);
      cout<<'\n'<<"success process data "<<data.size()<<" "<<"items."<<'\n';
      return data;
 }
@@ -375,7 +357,7 @@ int main()
 
     srand(time(NULL));
 
-    const string path = "/Gene/SiteLayoutExportInfo_v0012.json";
+    const string path = "your data";
     const vector<vector<float>>data = loadFile(path);
     const vector<vector<float>>W = computeDist(data);
 
