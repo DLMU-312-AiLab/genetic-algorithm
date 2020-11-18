@@ -60,10 +60,10 @@ vector<vector<float>> computeDist(const vector<vector<float>>& data)
 
     vector<vector<float>> W(NUM_POINTS,vector<float>(NUM_POINTS,0));
 
-    int row=0;
+    unsigned int row=0;
     for(auto& vec1 : data)
     {
-	int col=0;
+	unsigned int col=0;
         for(auto& vec2 : data)
 	{
 	    float dist = sqrt(pow((vec1.at(0)-vec2.at(0)),2) + pow((vec1.at(1)-vec2.at(1)),2));
@@ -81,7 +81,7 @@ void showMatrix(const vector<vector<int>>& pop)
 {
     cout<<"please click ENTER to show matrix ";
     cin.get();
-    int popSize=pop.size();
+    unsigned int popSize=pop.size();
     
     for(int i=0;i<popSize;i++)
     {
@@ -102,7 +102,7 @@ vector<vector<int>> initMatrix(const int pop_size,const int dna_size)
     {
         for(int j=0;j<dna_size;j++)
 	{
-	    int temp = rand()%2;
+	    unsigned int temp = rand()%2;
 	    pop.at(i).at(j) = temp;
 	}
 
@@ -113,20 +113,20 @@ vector<vector<int>> initMatrix(const int pop_size,const int dna_size)
 void mutation(vector<int>& child)
 {
     float prob=rand()%(N+1)/(float)(N+1);
-    int low = 0;
-    int high = DNA_SIZE*5;
+    unsigned int low = 0;
+    unsigned int high = DNA_SIZE*5;
 
     if(prob<MUTATION_RATE)
     {
-        int pointMutate = rand()%(high-low)+low;
+        unsigned int pointMutate = rand()%(high-low)+low;
 	child.at(pointMutate) = child.at(pointMutate)^1;
     }
 }
 
 vector<vector<int>> crossoverAndMutation(const vector<vector<int>>& pop)
 {
-     int low = 0;
-     int high = 0;
+     unsigned int low = 0;
+     unsigned int high = 0;
 
      vector<vector<int>> new_pop(0);
      for(auto father: pop)
@@ -137,11 +137,11 @@ vector<vector<int>> crossoverAndMutation(const vector<vector<int>>& pop)
 	 if(prob<CROSSOVER_RATE)
 	 {
              high = pop.size();
-	     int motherIndex =  rand()%(high-low)+low;
+	     unsigned int motherIndex =  rand()%(high-low)+low;
 	     vector<int> mother = pop.at(motherIndex);
 	         
 	     high = mother.size();
-	     int pointIndex = rand()%(high-low)+low;
+	     unsigned int pointIndex = rand()%(high-low)+low;
 
              for(int j=pointIndex;j<DNA_SIZE*5;j++)
 	     {
@@ -318,12 +318,12 @@ int searchMaxVal(const vector<int>& fitness)
 {
     assert(POP_SIZE == fitness.size());
 
-    int maxPos=0;
-    int maxValue = fitness.at(maxPos);
+    unsigned  int maxPos=0;
+    unsigned int maxValue = fitness.at(maxPos);
 
     for(int pos=1;pos<POP_SIZE;pos++)
     {
-	    int curValue = fitness.at(pos);
+	    unsigned int curValue = fitness.at(pos);
 
 	    if (curValue>maxValue)
 	    {
@@ -338,7 +338,7 @@ int searchMaxVal(const vector<int>& fitness)
 void printInfo(const vector<vector<int>>& pop,const vector<vector<float>>& W)
 {
     vector<int> fitness = get_fitness(pop,W);
-    int pos = searchMaxVal(fitness);
+    unsigned int pos = searchMaxVal(fitness);
     vector<vector<int>> X = translateDNA(pop);
 
     cout<<"optimization DNA Index: "<<pos<<endl;
