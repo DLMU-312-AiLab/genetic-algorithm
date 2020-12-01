@@ -13,14 +13,14 @@
 #include <random>
 #include <ctime>
 
-#define DNA_SIZE  11
-#define POP_SIZE  200
+#define DNA_SIZE        11
+#define POP_SIZE        200
 #define CROSSOVER_RATE  0.8
-#define MUTATION_RATE  0.005
-#define N_GENERATIONS  100
-#define RADIUS  70
-#define NUM_POINTS  2048
-#define N 999
+#define MUTATION_RATE   0.005
+#define N_GENERATIONS   100
+#define RADIUS          70
+#define NUM_POINTS      2048
+#define N               999
 
 using namespace std;
 
