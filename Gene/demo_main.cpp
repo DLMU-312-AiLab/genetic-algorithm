@@ -28,20 +28,17 @@ vector<vector<float>> loadFile(const string& path)
 {
     Json::Reader reader;
     Json::Value root;
-
     fstream fileObj(path);
 
     vector<vector<float>> data(0,vector<float>(2,0));
-
     list<string> key1(0);
+
     if(!fileObj)
     {
         cout<<"read file failed"<<endl;
 	cout<<path<<endl;
 	exit(-1);
-    }
-    else
-    {
+    }else{
 	    // load your data
 	    
 			}
@@ -57,10 +54,9 @@ vector<vector<float>> loadFile(const string& path)
 vector<vector<float>> computeDist(const vector<vector<float>>& data)
 {
     assert(NUM_POINTS == data.size());
-
     vector<vector<float>> W(NUM_POINTS,vector<float>(NUM_POINTS,0));
-
     unsigned int row=0;
+
     for(auto& vec1 : data)
     {
 	unsigned int col=0;
@@ -72,9 +68,7 @@ vector<vector<float>> computeDist(const vector<vector<float>>& data)
 	}
 	row++;
     }
-
     return W;
-
 }
 
 void showMatrix(const vector<vector<int>>& pop)
@@ -88,7 +82,6 @@ void showMatrix(const vector<vector<int>>& pop)
         for(int j=0;j<pop.at(i).size();j++)
 	{
 	    cout<<pop.at(i).at(j)<<" ";
-	    
 	}
 	cout<<'\n';
     }
@@ -105,7 +98,6 @@ vector<vector<int>> initMatrix(const int pop_size,const int dna_size)
 	    unsigned int temp = rand()%2;
 	    pop.at(i).at(j) = temp;
 	}
-
     }
     return pop;
 }
@@ -132,17 +124,14 @@ vector<vector<int>> crossoverAndMutation(const vector<vector<int>>& pop)
      for(auto father: pop)
      {
          vector<int>& child=father;
-
          float prob = rand()%(N+1)/(float)(N+1);
 	 if(prob<CROSSOVER_RATE)
 	 {
              high = pop.size();
 	     unsigned int motherIndex =  rand()%(high-low)+low;
 	     vector<int> mother = pop.at(motherIndex);
-	         
 	     high = mother.size();
 	     unsigned int pointIndex = rand()%(high-low)+low;
-
              for(int j=pointIndex;j<DNA_SIZE*5;j++)
 	     {
 	         child.at(j) = mother.at(j);
@@ -156,16 +145,13 @@ vector<vector<int>> crossoverAndMutation(const vector<vector<int>>& pop)
 
 vector<vector<int>> translateDNA(const vector<vector<int>>& pop)
 {
-
     assert(POP_SIZE == pop.size());
     vector<vector<int>> X(POP_SIZE,vector<int>(5,0));
-
     vector<vector<int>>x1_pop(0,vector<int>(DNA_SIZE,0));
     vector<vector<int>>x2_pop(0,vector<int>(DNA_SIZE,0));
     vector<vector<int>>x3_pop(0,vector<int>(DNA_SIZE,0));
     vector<vector<int>>x4_pop(0,vector<int>(DNA_SIZE,0));
     vector<vector<int>>x5_pop(0,vector<int>(DNA_SIZE,0));
-
     for(auto &dna : pop)
     {
 	    x1_pop.push_back(vector<int>(dna.begin() , dna.begin()+DNA_SIZE));
@@ -176,14 +162,11 @@ vector<vector<int>> translateDNA(const vector<vector<int>>& pop)
     }
 
     vector<int> range(DNA_SIZE);
-
     for(int i=0;i<DNA_SIZE;i++)
     {
         range.at(i) = pow(2,i);
     }
-
     reverse(range.begin(),range.end());
-
     for(int j=0;j<POP_SIZE;j++)
     {
         for(int k=0;k<DNA_SIZE;k++)
@@ -202,7 +185,6 @@ vector<vector<int>> translateDNA(const vector<vector<int>>& pop)
 list<int> F(const vector<vector<int>>& X,const vector<vector<float>>& W)
 {
     assert(POP_SIZE == X.size());
-
     list<int> total(0);
     for(int i=0;i<POP_SIZE;i++)
     {
@@ -249,7 +231,6 @@ list<int> F(const vector<vector<int>>& X,const vector<vector<float>>& W)
 		{
 		    x5_list.push_back(j);
 		}
-
 	    }
 
             list<int>total_list(0);
@@ -273,7 +254,6 @@ vector<int> get_fitness(const vector<vector<int>>& pop,const vector<vector<float
    list<int> predList = F(X,W);
    vector<int> pred(predList.begin(),predList.end());
    return pred;
-
 }
 
 vector<vector<int>> select(const vector<vector<int>>& pop,const vector<int>& fitness)
@@ -283,34 +263,28 @@ vector<vector<int>> select(const vector<vector<int>>& pop,const vector<int>& fit
 
         vector<vector<int>> newPop(POP_SIZE,vector<int>(DNA_SIZE*5,0));
         vector<int>idx(0); 
-        
 	int sum=accumulate(fitness.begin(),fitness.end(),0);
 	if(sum!=0)
 	{
             default_random_engine generator;
             discrete_distribution<int> distribution(fitness.begin(),fitness.end());
-
 	    for(int i=0;i<POP_SIZE;i++)
 	    {
 	        int number = distribution(generator);
 		idx.push_back(number);
 	    }
-	}
-	else
-	{
-	
+	}else{
 	    for(int i=0;i<POP_SIZE;i++)
 	    {
 	        idx.push_back(i);
 	    }
 	}
-
+	
 	for(int i=0;i<POP_SIZE;i++)
 	{
 	    int num = idx[i];
 	    newPop[i] = pop[num];
 	}
-
 	return newPop; 
 }
 
@@ -320,11 +294,9 @@ int searchMaxVal(const vector<int>& fitness)
 
     unsigned  int maxPos=0;
     unsigned int maxValue = fitness.at(maxPos);
-
     for(int pos=1;pos<POP_SIZE;pos++)
     {
 	    unsigned int curValue = fitness.at(pos);
-
 	    if (curValue>maxValue)
 	    {
 	        maxValue = curValue;
@@ -332,7 +304,6 @@ int searchMaxVal(const vector<int>& fitness)
 	    }
     }
     return maxPos;
-
 }
 
 void printInfo(const vector<vector<int>>& pop,const vector<vector<float>>& W)
@@ -349,18 +320,14 @@ void printInfo(const vector<vector<int>>& pop,const vector<vector<float>>& W)
     cout<<X.at(pos).at(2)<<" ";
     cout<<X.at(pos).at(3)<<" ";
     cout<<X.at(pos).at(4)<<" "<<endl;
-
 }
 
 int main()
 {
-
     srand(time(NULL));
-
     const string path = "your data";
     const vector<vector<float>>data = loadFile(path);
     const vector<vector<float>>W = computeDist(data);
-
     vector<vector<int>> pop = initMatrix(POP_SIZE,DNA_SIZE*5);
 
     for(int n=0;n<N_GENERATIONS;n++)
